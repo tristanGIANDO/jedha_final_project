@@ -1,5 +1,8 @@
 # Jedha Final Project
 
+[![project](https://img.shields.io/badge/Planning-%230077B5.svg?logo=github&logoColor=white)](https://github.com/users/tristanGIANDO/projects/6)
+[![julie](https://img.shields.io/badge/Julie-%230077B5.svg?&logoColor=white)](https://app.jedha.co/course/projects-prep-ft/project-overview-ft)
+
 ## Brainstorming 26/07/2024
 
 * Création du repository et du projet
