@@ -1,0 +1,9 @@
+name: jedha_project
+channels:
+  - defaults
+dependencies:
+  - pandas
+  - numpy
+  - boto3
+  - python-dotenv
+  - scikit-learn
