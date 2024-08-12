@@ -108,9 +108,11 @@ conda env update --file environment.yml
 Les datasets sont stockés sur AWS S3.
 
 **Pour en ajouter :** (peut être privé par défaut)
+
 Executer le fichier `jedha_final_project\data_collection\manage_files_s3.py` avec les chemins des fichiers à ajouter.
 
 **Pour les lire :**
+
 Utiliser le root `https://jedha-final-project-jrat.s3.amazonaws.com` + le nom du fichier.
 
 Exemple :
