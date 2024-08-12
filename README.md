@@ -105,7 +105,7 @@ conda env update --file environment.yml
 
 # Usage
 
-Les datasets sont stockés sur AWS S3.
+Les datasets sont stockés sur AWS S3 -> https://us-east-1.console.aws.amazon.com/s3/buckets/jedha-final-project-jrat?region=us-east-1&bucketType=general&tab=objects
 
 **Pour en ajouter :** (peut être privé par défaut)
 
