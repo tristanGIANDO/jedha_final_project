@@ -97,7 +97,7 @@ conda activate jedha_project
 Pour mettre à jour l'environnement :
 
 1. Modifier `jedha_final_project/environment.yml`
-2. Executer la commande # à tester:
+2. Executer la commande:
 
 ```bash
 conda env update --file environment.yml

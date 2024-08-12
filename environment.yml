@@ -7,3 +7,5 @@ dependencies:
   - boto3
   - python-dotenv
   - scikit-learn
+  - fsspec
+  - s3fs
