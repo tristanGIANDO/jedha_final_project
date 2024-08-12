@@ -9,15 +9,23 @@ load_dotenv(find_dotenv("./.env"))
 
 BUCKET_NAME = envs.BUCKET_NAME
 
-session = boto3.Session(aws_access_key_id=os.getenv("AWS_KEY"),
-                        aws_secret_access_key=os.getenv("AWS_SECRET"))
-
-s3 = session.resource("s3")
-
 
 def post_files(files: list[str]) -> None:
-    global session
-    global s3
+    """Post CSV files to S3 bucket
+
+    Args:
+        files (list[str]): local path of the files
+
+    Raises:
+        FileExistsError: file does not exist
+
+    Returns:
+        _type_: created bucket
+    """
+    session = boto3.Session(aws_access_key_id=os.getenv("AWS_KEY"),
+                            aws_secret_access_key=os.getenv("AWS_SECRET"))
+
+    s3 = session.resource("s3")
 
     objects = []
 
@@ -36,8 +44,18 @@ def post_files(files: list[str]) -> None:
 
 
 def get_files(files: list[str]) -> list[str]:
-    global session
-    global s3
+    """Download files. To use only if connection issues
+
+    Args:
+        files (list[str]): path of file on S3
+
+    Returns:
+        list[str]: downloaded files
+    """
+    session = boto3.Session(aws_access_key_id=os.getenv("AWS_KEY"),
+                            aws_secret_access_key=os.getenv("AWS_SECRET"))
+
+    s3 = session.resource("s3")
 
     bucket = s3.Bucket(BUCKET_NAME)
 
@@ -58,14 +76,10 @@ def get_files(files: list[str]) -> list[str]:
 
 
 if __name__ == "__main__":
-    # send files
+    # send CSV
     objects = post_files(["jedha_final_project/data_collection/test_file.csv"])
     print(objects)
 
-    # download files
-    file_list = ["test_file.csv"]
-    downloaded_files = get_files(file_list)
-
-    if downloaded_files:
-        df = pd.read_csv(downloaded_files[0])
-        print(df.head())
+    # read CSV
+    df = pd.read_csv("https://jedha-final-project-jrat.s3.amazonaws.com/test_file.csv")
+    print(df.head())
