@@ -76,10 +76,10 @@ def get_files(files: list[str]) -> list[str]:
 
 
 if __name__ == "__main__":
-    # send CSV
-    objects = post_files(["jedha_final_project/data_collection/test_file.csv"])
-    print(objects)
+    # # send CSV
+    # objects = post_files(["jedha_final_project/data_collection/test_file.csv"])
+    # print(objects)
 
     # read CSV
-    df = pd.read_csv("https://jedha-final-project-jrat.s3.amazonaws.com/test_file.csv")
+    df = pd.read_csv(envs.S3_ROOT + "parc_national.csv", encoding="utf-8")
     print(df.head())
