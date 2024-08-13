@@ -9,3 +9,4 @@ dependencies:
   - scikit-learn
   - fsspec
   - s3fs
+  - statsmodels.tsa.statespace.sarimax
