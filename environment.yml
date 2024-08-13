@@ -15,3 +15,4 @@ dependencies:
   - plotly
   - matplotlib
   - seaborn
+  - statsmodels.tsa.statespace.sarimax
