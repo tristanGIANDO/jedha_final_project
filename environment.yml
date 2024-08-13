@@ -10,3 +10,6 @@ dependencies:
   - scikit-learn
   - fsspec
   - s3fs
+  - plotly
+  - matplotlib
+  - seaborn
