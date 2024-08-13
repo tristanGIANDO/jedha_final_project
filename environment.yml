@@ -4,7 +4,6 @@ channels:
 dependencies:
   - pandas
   - numpy
-  - geocoder
   - boto3
   - python-dotenv
   - scikit-learn
