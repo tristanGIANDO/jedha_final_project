@@ -1,0 +1,12 @@
+name: jedha_project
+channels:
+  - defaults
+dependencies:
+  - pandas
+  - numpy
+  - geocoder
+  - boto3
+  - python-dotenv
+  - scikit-learn
+  - fsspec
+  - s3fs
