@@ -15,4 +15,3 @@ dependencies:
   - matplotlib
   - seaborn
   - statsmodels
-  - calendar
