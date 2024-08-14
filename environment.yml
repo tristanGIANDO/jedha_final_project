@@ -6,7 +6,6 @@ dependencies:
   - python=3.12
   - pandas
   - numpy
-  - geocoder
   - boto3
   - python-dotenv
   - scikit-learn
