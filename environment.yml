@@ -1,7 +1,9 @@
 name: jedha_project
 channels:
+  - conda-forge
   - defaults
 dependencies:
+  - python=3.12
   - pandas
   - numpy
   - boto3
@@ -9,4 +11,6 @@ dependencies:
   - scikit-learn
   - fsspec
   - s3fs
-  - statsmodels.tsa.statespace.sarimax
+  - plotly
+  - matplotlib
+  - seaborn
