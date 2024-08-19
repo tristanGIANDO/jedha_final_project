@@ -19,6 +19,4 @@ dependencies:
   - folium
   - streamlit
   - streamlit_folium
-  - shapely.geometry
-  - branca.colormap
   - datetime
