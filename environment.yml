@@ -20,3 +20,4 @@ dependencies:
   - streamlit
   - streamlit_folium
   - datetime
+  - geojson
