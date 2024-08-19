@@ -15,3 +15,10 @@ dependencies:
   - matplotlib
   - seaborn
   - statsmodels
+  - geopandas
+  - folium
+  - streamlit
+  - streamlit_folium
+  - shapely.geometry
+  - branca.colormap
+  - datetime
