@@ -213,52 +213,20 @@ def index():
 
 
     # ENJEUX ZONE
-    file_path_enjeux_map = "gdf2_BFC.gpkg"
-    df_enjeux = gpd.read_file(file_path_enjeux_map)
+    allowed_zones_logo_url = "https://www.svgrepo.com/show/311890/check-mark.svg"
+    df_allowed_zones = pd.read_csv("https://jedha-final-project-jrat.s3.amazonaws.com/zones_03.csv")
+    heatmap_data_allowed_zones = df_allowed_zones[['LAT', 'LON']].values.tolist()
+    HeatMap(
+        name=f'<img src="{allowed_zones_logo_url}" width="30" height=" style="vertical-align: middle;"> ZONES POTENTIELLEMENT FAVORABLES',  # Naming the layer
+        data=heatmap_data_allowed_zones,
+        radius=5,           # Adjust the radius of each point
+        blur=8,             # Adjust the blur of the points
+        min_opacity=0.3,
+        gradient={0: 'rgba(163,84,141,0)', 1: 'rgba(163,84,141,1)'},  # Custom color gradient,
+        show = False
+    ).add_to(mymap)
 
-    # Define the dictionary for enjeux
-    enjeux_zone_dict = {
-        0: {
-            'name': 'ZONES REDHIBITOIRES',
-            'color': 'white',
-            'icon': '🚫'
-        },
-        1: {
-            'name': 'ZONES NON POTENTIELLEMENT FAVORABLES',
-            'color': '#FECDFF',
-            'icon': '⚠️'
-        },
-        2: {
-            'name': 'ZONES POTENTIELLEMENT FAVORABLES 1',
-            'color': '#D086FF',
-            'icon': '✅'
-        },
-        3: {
-            'name': 'ZONES POTENTIELLEMENT FAVORABLES 2',
-            'color': '#810179',
-            'icon': '👍'
-        }
-    }
-
-    # Add each enjeu in the map
-    for enjeu_value in list(enjeux_zone_dict.keys()):
-        enjeu = df_enjeux[df_enjeux['enjeu'] == enjeu_value]
-
-        icon_html = f'<span style="font-size: 22px;">{enjeux_zone_dict[enjeu_value]['icon']}</span> {enjeux_zone_dict[enjeu_value]['name']}'
-        
-        folium.GeoJson(
-            enjeu,
-            style_function=lambda feature, color=enjeux_zone_dict[enjeu_value]['color']: {
-                'fillColor': color,
-                'color': 'white',
-                'weight': 0,
-                'fillOpacity': 0.6
-            },
-            name=icon_html,
-            show=False
-        ).add_to(mymap)
-
-
+    # WIND TURBINES LOCATION
     wind_turbine_df = pd.read_csv('parcs_eoliens_terrestres.csv')
     wind_turbine_logo_url = "https://www.svgrepo.com/show/530100/wind-energy.svg"
     wind_turbine_group = folium.FeatureGroup(name=f'  <img src="{wind_turbine_logo_url}" width="30" height="30" style="vertical-align: middle;"> WIND TURBINES', overlay=True, show=False)

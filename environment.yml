@@ -18,5 +18,3 @@ dependencies:
   - statsmodels
   - geopandas
   - folium
-  - streamlit
-  - streamlit_folium
