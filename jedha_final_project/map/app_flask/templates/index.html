@@ -10,16 +10,88 @@
             height: 100%;
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
         }
 
-        /* Ensure the map container fills the full height of its parent */
-        #map {
+        /* Container for the content including the text, map, and reference box */
+        .container {
             height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header section with title and text */
+        .header {
+            padding: 20px;
+            background-color: #AAD3DF;
+            text-align: left;
+            color: #000000;
+            border-bottom: 3px solid #9cc8ec;
+        }
+
+        /* Title styling */
+        h1 {
+            margin: 0;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        /* Paragraph styling */
+        p {
+            margin-top: 10px;
+            font-size: 16px;
+            text-align: left;
+        }
+        /* Paragraph styling */
+        li {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #000000;
+            text-align: left;
+        }
+
+        /* Map container should take remaining height */
+        #map {
+            flex: 1;
             width: 100%;
+        }
+
+        /* Reference box styling */
+        .reference-box {
+        padding: 20px;
+        background-color: #AAD3DF;
+        color: #000000; /* Font color for all text inside the box */
+        text-align: center;
+        border-top: 3px solid #9cc8ec;
         }
     </style>
 </head>
 <body>
-    <div id="map">{{ map_html|safe }}</div>
+    <div class="container">
+        <!-- Header with title and introduction text -->
+        <div class="header">
+            <h1>Wind Speed Forecast for France (2022-2027)</h1>
+            <p>
+                <br><br><br>This interactive map shows the wind speed prediction for the period 2022-2027.<br><br>It also gives the user the opportunity to cross-reference wind speed prediction with:
+                <ul>
+                    <li>Position of existing wind turbines</li>
+                    <li>Areas where the establishment of wind farms is possible under certain conditions</li>
+                    <li>Average wind direction for the period 2017-2022</li>
+                </ul>
+            </p>
+        </div>
+        <!-- Map will be inserted here -->
+        <div id="map">{{ map_html|safe }}</div>
+        <!-- Reference box under the map -->
+        <div class="reference-box">
+            <h2>References</h2>
+            <ul>
+                <li><a href="https://macarte.ign.fr/carte/1X3jxe/Carte-EnR-Grand-public" target="_blank">Portail cartographique des énergies renouvelables</a></li>
+                <li><a href="https://example.com/resource2" target="_blank">Resource 2</a></li>
+                <li><a href="https://example.com/resource3" target="_blank">Resource 3</a></li>
+                <!-- Add more references as needed -->
+            </ul>
+        </div>
+    </div>
 </body>
 </html>

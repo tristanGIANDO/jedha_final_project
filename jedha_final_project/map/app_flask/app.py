@@ -2,11 +2,9 @@ from flask import Flask, render_template
 import pandas as pd
 import folium
 import numpy as np
-from folium import plugins
-from folium.plugins import HeatMap, TimestampedGeoJson, HeatMapWithTime
+from folium.plugins import HeatMap, HeatMapWithTime
 import branca.colormap as cm
 import os
-import geopandas as gpd
 from folium import DivIcon
 
 
@@ -16,20 +14,21 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     # Load and filter data
-    df = pd.read_csv('datameteo_france_1950-2022_clean_02.csv')
-    df_filtered = df[(df['Year'] == 2012)]
-    df_filtered['Date'] = pd.to_datetime(df_filtered[['Year', 'Month']].assign(DAY=1))
+    df_wind_speed = pd.read_csv("https://jedha-final-project-jrat.s3.amazonaws.com/datameteo_france_1950-2022_clean_04.csv")
+    df_wind_speed_filtered = df_wind_speed[(df_wind_speed['Year'] > 2015)]
+    df_wind_speed_filtered['Date'] = pd.to_datetime(df_wind_speed_filtered[['Year', 'Month']].assign(DAY=1))
+
 
     # Create the Folium map
-    mymap = folium.Map(location=[df_filtered['LAT'].mean(), df_filtered['LON'].mean()], zoom_start=6)
+    mymap = folium.Map(location=[df_wind_speed_filtered['LAT'].mean(), df_wind_speed_filtered['LON'].mean()], zoom_start=6)
 
 
     # HEATMAP
     # Group data by time and create a list of heatmap data for each time
     heatmap_data = []
-    time_index = df_filtered['Date'].sort_values().unique()
+    time_index = df_wind_speed_filtered['Date'].sort_values().unique()
     for time_point in time_index:
-        data_at_time = df_filtered[df_filtered['Date'] == time_point]
+        data_at_time = df_wind_speed_filtered[df_wind_speed_filtered['Date'] == time_point]
         heatmap_data.append(data_at_time[['LAT', 'LON', 'vent_speed_inst_moy_mensu']].values.tolist())
 
     # Create a custom timeline index, labeling forecasted data differently
@@ -39,7 +38,7 @@ def index():
             timeline_labels.append(time_point.strftime('Historical %Y-%m-%d'))
         else:
             timeline_labels.append(time_point.strftime('Forecast %Y-%m-%d'))
-            
+
     wind_speed_logo_url = "https://www.svgrepo.com/show/475599/wind-svg.svg"
 
     # Add the heatmap with time
@@ -72,6 +71,8 @@ def index():
     }
     </style>
     """
+
+    # Add the Script to the map
     mymap.get_root().html.add_child(folium.Element(map_script_timeline_control))
 
     # JavaScript to reposition the timeline control before the zoom control
@@ -102,21 +103,22 @@ def index():
     </script>
     """
 
-    # Add the JavaScript to the map
+    # Add the Script to the map
     mymap.get_root().html.add_child(folium.Element(map_script_zoom_layer_control))
 
 
 
-        # Define the colormap
+    # Define the colormap (colorscale)
     colormap = cm.LinearColormap(colors=['#5F97CF', '#90E1A9', '#F4EB87', '#FFD391', '#D85356'], 
-                                 vmin=min(df_filtered['vent_speed_inst_moy_mensu']), 
-                                 vmax=max(df_filtered['vent_speed_inst_moy_mensu']))
+                                 vmin=min(df_wind_speed_filtered['vent_speed_inst_moy_mensu']), 
+                                 vmax=max(df_wind_speed_filtered['vent_speed_inst_moy_mensu']))
     
     # Add the colormap (color scale) to the map
     colormap.caption = 'Wind Speed (m/s)'
     colormap.add_to(mymap)
 
 
+    # Function to create table with wind speed for each location
     def create_html_table(df_subset):
         # Define the table style with padding for cells
         table_html = '''
@@ -138,7 +140,7 @@ def index():
         return table_html
     
     # Add popups with tables
-    for (lat, lon), group in df_filtered.groupby(['LAT', 'LON']):
+    for (lat, lon), group in df_wind_speed_filtered.groupby(['LAT', 'LON']):
         table_html = create_html_table(group)
         
         # Create a large clickable area using CircleMarker
@@ -156,8 +158,7 @@ def index():
 
     # WIND DIRECTION
     # Filter the DataFrame for wind data
-    df_filtered_wind = df[(df['Year'] == 2012) & (df['Month'] == 1)]
-
+    df_filtered_wind = df_wind_speed_filtered.groupby(['NUM_POSTE', 'LON', 'LAT'])['vent_dir_inst'].mean().reset_index()
     wind_direction_group_logo_url = "https://www.svgrepo.com/show/276658/wind-sign-wind.svg"
 
 
@@ -195,7 +196,7 @@ def index():
                 }}
                 50% {{
                     transform: translate({amplitude * np.cos(np.radians(wind_direction))}px, {amplitude * np.sin(np.radians(wind_direction))}px) rotate({wind_direction}deg);
-                    opacity: 0.6;
+                    opacity: 0.8;
                 }}
                 100% {{
                     transform: translate(0, 0) rotate({wind_direction}deg);
@@ -212,7 +213,7 @@ def index():
     wind_direction_group.add_to(mymap)
 
 
-    # ENJEUX ZONE
+    # ALLOWED ZONES
     allowed_zones_logo_url = "https://www.svgrepo.com/show/311890/check-mark.svg"
     df_allowed_zones = pd.read_csv("https://jedha-final-project-jrat.s3.amazonaws.com/zones_03.csv")
     heatmap_data_allowed_zones = df_allowed_zones[['LAT', 'LON']].values.tolist()
@@ -226,8 +227,9 @@ def index():
         show = False
     ).add_to(mymap)
 
+
     # WIND TURBINES LOCATION
-    wind_turbine_df = pd.read_csv('parcs_eoliens_terrestres.csv')
+    wind_turbine_df = pd.read_csv("https://jedha-final-project-jrat.s3.amazonaws.com/parcs_eoliens_terrestres.csv")
     wind_turbine_logo_url = "https://www.svgrepo.com/show/530100/wind-energy.svg"
     wind_turbine_group = folium.FeatureGroup(name=f'  <img src="{wind_turbine_logo_url}" width="30" height="30" style="vertical-align: middle;"> WIND TURBINES', overlay=True, show=False)
     for _, row in wind_turbine_df.iterrows():
@@ -248,8 +250,6 @@ def index():
 
     folium.LayerControl().add_to(mymap)
 
-
-    # Save the map to an HTML file
     map_html = mymap._repr_html_()
 
     return render_template('index.html', map_html=map_html)
