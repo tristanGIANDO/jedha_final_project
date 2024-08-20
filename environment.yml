@@ -13,6 +13,7 @@ dependencies:
   - s3fs
   - plotly
   - matplotlib
+  - nbformat
   - seaborn
   - statsmodels
   - geopandas
