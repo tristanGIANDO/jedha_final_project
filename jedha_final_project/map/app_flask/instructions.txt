@@ -1,18 +1,25 @@
 -----------------------------------------------------------------------------------------------------
-
+LOCAL
 docker build -t myflaskapp .
 docker run --name myflaskapp-container -it -v "$(pwd):/home/app" -p 5000:5000  myflaskapp sh
 python app.py
-
 
 docker start myflaskapp-container
 docker exec -it myflaskapp-container sh
 python app.py
 
-
-
+-----------------------------------------------------------------------------------------------------
+HEROKU NEW APP
 heroku container:login (if it doesnt work launch heroku:login before)
 heroku create my-flask-app-wind --stack=container
 heroku container:push web -a my-flask-app-wind
 heroku container:release web -a my-flask-app-wind
+heroku open -a my-flask-app-wind
+
+-----------------------------------------------------------------------------------------------------
+HEROKU UPDATE APP
+docker build -t myflaskapp .
+docker tag myflaskapp registry.heroku.com/my-flask-app-wind/web
+docker push registry.heroku.com/my-flask-app-wind/web
+heroku container:release web --app my-flask-app-wind
 heroku open -a my-flask-app-wind
