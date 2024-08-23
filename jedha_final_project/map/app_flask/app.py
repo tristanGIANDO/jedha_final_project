@@ -189,7 +189,7 @@ def index():
     wind_turbine_logo_url = "https://www.svgrepo.com/show/227547/windmill-eolian.svg"
     wind_turbine_group = folium.FeatureGroup(name=f'  <img src="{wind_turbine_logo_url}" width="30" height="30" style="vertical-align: middle;"> WIND TURBINES', overlay=True, show=False)
     for _, row in wind_turbine_df.iterrows():
-        size = 11
+        size = 20
         popup_content = f"""
         <div style="font-family: Arial, sans-serif; font-size: 14px; color: #333; text-align: center;">
             <img src="{wind_turbine_logo_url}" width="{size}" height="{size}" style="display: block; margin: auto;"/>
@@ -207,9 +207,15 @@ def index():
 
     folium.LayerControl().add_to(mymap)
     Fullscreen(position='topright').add_to(mymap)
-    mymap.save('final_map.html')
 
     map_html = mymap._repr_html_()
+
+    rendered_html = render_template('index.html', map_html=map_html)
+    
+    # Save the rendered HTML to a file
+    with open('final_map.html', 'w') as f:
+        f.write(rendered_html)
+
 
     return render_template('index.html', map_html=map_html)
 

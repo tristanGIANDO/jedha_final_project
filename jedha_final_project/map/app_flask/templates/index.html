@@ -20,14 +20,21 @@
             flex-direction: column;
         }
 
-        /* Header section with title and text */
-        .header {
-            padding: 20px;
+        /* Header section styling */
+        .header-container {
             background-color: #84becf;
+            padding: 20px;
+            background-image: url('https://cdn.pixabay.com/photo/2021/01/22/18/09/windy-5940755_1280.png');
+            background-position: calc(50% + 10%) calc(50% - 15%); /* Move image 10% right and 10% up from center */
+
+
+        }
+
+        .header {
             text-align: left;
             color: #000000;
-            border-bottom: 3px solid #9cc8ec;
         }
+
         /* Title styling */
         h1 {
             margin: 0;
@@ -46,37 +53,52 @@
         ul {
             padding-left: 20px;
         }
-        
+
         /* List item styling */
-li {
-    margin-top: 10px;
-    font-size: 16px;
-    color: #000000;
-    text-align: left;
-    padding-left: 5px; /* Add padding for alignment */
-    position: relative; /* Ensure positioning context for the logo */
-}
-
-/* Logo styling */
-li img {
-    height: 30px; /* Set height to 30px */
-    width: 30px; /* Set width to 30px */
-    vertical-align: middle; /* Align the logo vertically in the middle of the text */
-    margin-left: 10px; /* Add some space between text and logo */
-}
-
-        /* Map container should take remaining height */
-        #map {
-            flex: 1;
-            width: 100%;
+        li {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #000000;
+            text-align: left;
+            padding-left: 5px; /* Add padding for alignment */
+            position: relative; /* Ensure positioning context for the logo */
         }
 
+        /* Logo styling */
+        li img {
+            height: 30px; /* Set height to 30px */
+            width: 30px; /* Set width to 30px */
+            vertical-align: middle; /* Align the logo vertically in the middle of the text */
+            margin-left: 10px; /* Add some space between text and logo */
+        }
+
+                /* Map container styling */
+        .map-container {
+            flex: 1;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically if needed */
+            background-color: #EDEDED
+        ;    position: relative; /* Ensure proper stacking context if needed */
+        }
+
+        /* Map styling */
+        #map {
+            width: 80%; /* Adjust the width as needed */
+            max-width: 1200px; /* Optional: Set a maximum width for the map */
+            position: relative; /* Ensure it stacks above the background image */
+            z-index: 1; /* Ensure it is above the background image */
+        }
+
+
         /* Footer styling */
-        footer {
+        .footer-container {
             padding: 20px;
-            background-color: #84becf;
+            background-color: #EDEDED;
             color: #000000; /* Font color for all text inside the footer */
-            border-top: 3px solid #9cc8ec;
+        }
+
+        footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -91,48 +113,55 @@ li img {
         footer a:hover {
             text-decoration: underline;
         }
+
         /* Footer credits styling */
         .credits {
             font-size: 14px;
             font-style: italic;
         }
     </style>
-
-    </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header with title and introduction text -->
-        <div class="header">
-            <h1>Guidance Map for Future Wind Energy Projects in France</h1>
-            <p>
-                <br>This interactive map shows the monthly wind speed prediction for the period 2023-2029 in France.<br><br>It also gives the user the opportunity to cross-reference our wind speed prediction with:
-                <ul>
-                    <li>the position of existing wind turbines <img src="https://www.svgrepo.com/show/227547/windmill-eolian.svg" alt="Wind Turbine Logo"></li>
-                    <li>the areas where the establishment of wind farms is possible under certain conditions <img src="https://www.svgrepo.com/show/311890/check-mark.svg" alt="Zones Logo"></li>
-                    <li>the average wind direction for the period 2008-2022 <img src="https://www.svgrepo.com/show/276658/wind-sign-wind.svg" alt="Wind Turbine Logo"></li>
-                    <li>the historical monthly wind speed value for the period 2008-2022 <img src="https://www.svgrepo.com/show/502683/graph.svg" alt="Wind Turbine Logo"></li>
-                </ul>
-            </p>
+        <!-- Header section -->
+        <div class="header-container">
+            <div class="header">
+                <h1>Guidance Map for Future Wind Energy Projects in France</h1>
+                <p>
+                    This interactive map shows the monthly wind speed prediction for the period 2023-2029 in France.<br><br>It also gives the user the opportunity to cross-reference our wind speed prediction with:
+                    <ul>
+                        <li>the position of existing wind turbines <img src="https://www.svgrepo.com/show/227547/windmill-eolian.svg" alt="Wind Turbine Logo"></li>
+                        <li>the areas where the establishment of wind farms is possible under certain conditions <img src="https://www.svgrepo.com/show/311890/check-mark.svg" alt="Zones Logo"></li>
+                        <li>the average wind direction for the period 2008-2022 <img src="https://www.svgrepo.com/show/276658/wind-sign-wind.svg" alt="Wind Direction Logo"></li>
+                        <li>the historical monthly wind speed value for the period 2008-2022 <img src="https://www.svgrepo.com/show/502683/graph.svg" alt="Graph Logo"></li>
+                    </ul>
+                </p>
+            </div>
         </div>
-        <!-- Map will be inserted here -->
-        <div id="map">{{ map_html|safe }}</div>
+
+        <!-- Map section -->
+        <div class="map-container">
+            <div id="map">{{ map_html|safe }}</div>
+        </div>
+
         <!-- Footer section -->
-        <footer>
-            <div class="references">
-                <h2>References</h2>
-                <ul>
-                    <li><a href="https://macarte.ign.fr/carte/1X3jxe/Carte-EnR-Grand-public" target="_blank">Portail cartographique des énergies renouvelables</a></li>
-                    <li><a href="https://www.georisques.gouv.fr/donnees/bases-de-donnees/eolien-terrestre" target="_blank">Georisques.gouv: Eolien terrestre</a></li>
-                    <li><a href="https://www.data.gouv.fr/fr/datasets/donnees-climatologiques-de-base-mensuelles/" target="_blank">Data.gouv: Données climatologiques de base mensuelles</a></li>
-                    <li><a href="https://www.ecologie.gouv.fr/sites/default/files/documents/23242_Strategie-energie-climat.pdf" target="_blank">Ecologie.gouv: Stratégie Energie Climat</a></li>
-                </ul>
-            </div>
-            <div class="credits">
-                Made with &#10084; by Alexis, Jeremy, Romain, and Tristan <br><br>
-                <a href="https://github.com/tristanGIANDO/jedha_final_project" target="_blank">GitHub Project</a>
-            </div>
-        </footer>
+        <div class="footer-container">
+            <footer>
+                <div class="references">
+                    <h2>References</h2>
+                    <ul>
+                        <li><a href="https://macarte.ign.fr/carte/1X3jxe/Carte-EnR-Grand-public" target="_blank">Portail cartographique des énergies renouvelables</a></li>
+                        <li><a href="https://www.georisques.gouv.fr/donnees/bases-de-donnees/eolien-terrestre" target="_blank">Georisques.gouv: Eolien terrestre</a></li>
+                        <li><a href="https://www.data.gouv.fr/fr/datasets/donnees-climatologiques-de-base-mensuelles/" target="_blank">Data.gouv: Données climatologiques de base mensuelles</a></li>
+                        <li><a href="https://www.ecologie.gouv.fr/sites/default/files/documents/23242_Strategie-energie-climat.pdf" target="_blank">Ecologie.gouv: Stratégie Energie Climat</a></li>
+                    </ul>
+                </div>
+                <div class="credits">
+                    Made with &#10084; by Alexis, Jeremy, Romain, and Tristan <br><br>
+                    <a href="https://github.com/tristanGIANDO/jedha_final_project" target="_blank">GitHub Project</a>
+                </div>
+            </footer>
+        </div>
     </div>
 </body>
 </html>
