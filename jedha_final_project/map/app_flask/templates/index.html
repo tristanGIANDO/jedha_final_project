@@ -20,16 +20,31 @@
             flex-direction: column;
         }
 
-        /* Header section styling */
         .header-container {
-            background-color: #84becf;
+            background-color: #FFF3E0;
             padding: 20px;
-            background-image: url('https://cdn.pixabay.com/photo/2021/01/22/18/09/windy-5940755_1280.png');
-            background-position: calc(50% + 10%) calc(50% - 15%); /* Move image 10% right and 10% up from center */
-
-
+            position: relative;
+            border-bottom: 4px solid #FFE3BA; /* Add a bottom border with desired thickness and color */
         }
 
+        .header-container::after {
+            content: "";
+            background-image: url('https://cdn.pixabay.com/photo/2022/11/16/09/26/wind-7595553_1280.png');
+            background-position: calc(50% - 20%) calc(40% - 15%);
+            background-size: cover;
+            opacity: 0.4; /* Adjust the transparency level here */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0; /* Place it behind the content */
+        }
+
+        .header-container * {
+            position: relative;
+            z-index: 1; /* Ensure content is above the background */
+        }
         .header {
             text-align: left;
             color: #000000;
@@ -69,7 +84,6 @@
             height: 30px; /* Set height to 30px */
             width: 30px; /* Set width to 30px */
             vertical-align: middle; /* Align the logo vertically in the middle of the text */
-            margin-left: 10px; /* Add some space between text and logo */
         }
 
                 /* Map container styling */
@@ -78,7 +92,7 @@
             display: flex;
             justify-content: center; /* Center horizontally */
             align-items: center; /* Center vertically if needed */
-            background-color: #EDEDED
+            background-color: #FFF3E0
         ;    position: relative; /* Ensure proper stacking context if needed */
         }
 
@@ -87,16 +101,40 @@
             width: 80%; /* Adjust the width as needed */
             max-width: 1200px; /* Optional: Set a maximum width for the map */
             position: relative; /* Ensure it stacks above the background image */
-            z-index: 1; /* Ensure it is above the background image */
+            z-index: 1; 
+            border-left: 4px solid #FFE3BA;
+            border-right: 4px solid #FFE3BA;/* Ensure it is above the background image */
+            /* Ensure it is above the background image */
         }
 
-
-        /* Footer styling */
         .footer-container {
             padding: 20px;
-            background-color: #EDEDED;
-            color: #000000; /* Font color for all text inside the footer */
+            background-color: #FFF3E0;
+            color: #000000;
+            position: relative;
+            border-top: 4px solid #FFE3BA; /* Add a top border with desired thickness and color */
+            /* Ensure the pseudo-element is positioned correctly */
         }
+
+        .footer-container::after {
+            content: "";
+            background-image: url('https://cdn.pixabay.com/photo/2022/11/16/09/26/wind-7595553_1280.png');
+            background-position: calc(50% + 10%) calc(53% - 15%);
+            background-size: cover;
+            opacity: 0.4; /* Adjust the transparency level here */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0; /* Place it behind the content */
+        }
+
+        .footer-container * {
+            position: relative;
+            z-index: 1; /* Ensure content is above the background */
+        }
+
 
         footer {
             display: flex;
@@ -128,7 +166,7 @@
             <div class="header">
                 <h1>Guidance Map for Future Wind Energy Projects in France</h1>
                 <p>
-                    This interactive map shows the monthly wind speed prediction for the period 2023-2029 in France.<br><br>It also gives the user the opportunity to cross-reference our wind speed prediction with:
+                    This interactive map shows the monthly wind speed prediction for the period 2023-2029 in France.<br>It also gives the user the opportunity to cross-reference our wind speed prediction with:
                     <ul>
                         <li>the position of existing wind turbines <img src="https://www.svgrepo.com/show/227547/windmill-eolian.svg" alt="Wind Turbine Logo"></li>
                         <li>the areas where the establishment of wind farms is possible under certain conditions <img src="https://www.svgrepo.com/show/311890/check-mark.svg" alt="Zones Logo"></li>
@@ -150,10 +188,10 @@
                 <div class="references">
                     <h2>References</h2>
                     <ul>
-                        <li><a href="https://macarte.ign.fr/carte/1X3jxe/Carte-EnR-Grand-public" target="_blank">Portail cartographique des énergies renouvelables</a></li>
+                        <li><a href="https://macarte.ign.fr/carte/1X3jxe/Carte-EnR-Grand-public" target="_blank">Portail cartographique des energies renouvelables</a></li>
                         <li><a href="https://www.georisques.gouv.fr/donnees/bases-de-donnees/eolien-terrestre" target="_blank">Georisques.gouv: Eolien terrestre</a></li>
-                        <li><a href="https://www.data.gouv.fr/fr/datasets/donnees-climatologiques-de-base-mensuelles/" target="_blank">Data.gouv: Données climatologiques de base mensuelles</a></li>
-                        <li><a href="https://www.ecologie.gouv.fr/sites/default/files/documents/23242_Strategie-energie-climat.pdf" target="_blank">Ecologie.gouv: Stratégie Energie Climat</a></li>
+                        <li><a href="https://www.data.gouv.fr/fr/datasets/donnees-climatologiques-de-base-mensuelles/" target="_blank">Data.gouv: Donnees climatologiques de base mensuelles</a></li>
+                        <li><a href="https://www.ecologie.gouv.fr/sites/default/files/documents/23242_Strategie-energie-climat.pdf" target="_blank">Ecologie.gouv: Strategie Energie Climat</a></li>
                     </ul>
                 </div>
                 <div class="credits">

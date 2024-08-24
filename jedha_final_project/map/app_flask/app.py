@@ -15,7 +15,7 @@ def index():
     df_wind_speed['Date'] = pd.to_datetime(df_wind_speed['Date'])
 
 
-    mymap = folium.Map(tiles='cartodbpositron', location=[df_wind_speed['LAT'].mean(), df_wind_speed['LON'].mean()], zoom_start=6, min_zoom=6)
+    mymap = folium.Map(location=[df_wind_speed['LAT'].mean(), df_wind_speed['LON'].mean()], zoom_start=6, min_zoom=6)
 
     heatmap_data = []
     time_index = df_wind_speed['Date'].sort_values().unique()
@@ -50,7 +50,7 @@ def index():
             1.0: '#FF4D00',    
         },
         position='topleft',
-        show=False
+        show=True
     ).add_to(mymap)
     
     custom_css = """
@@ -203,7 +203,7 @@ def index():
         ).add_to(wind_turbine_group)
     wind_turbine_group.add_to(mymap)
 
-    folium.TileLayer('openstreetmap', name='OpenStreetMap', min_zoom=6).add_to(mymap)
+    folium.TileLayer('cartodbpositron', min_zoom=6).add_to(mymap)
 
     folium.LayerControl().add_to(mymap)
     Fullscreen(position='topright').add_to(mymap)
