@@ -1,12 +1,21 @@
 name: jedha_project
 channels:
+  - conda-forge
   - defaults
 dependencies:
+  - python=3.12
   - pandas
   - numpy
-  - geocoder
   - boto3
   - python-dotenv
   - scikit-learn
   - fsspec
   - s3fs
+  - plotly
+  - matplotlib
+  - nbformat
+  - seaborn
+  - statsmodels
+  - geopandas
+  - folium
+  - flask
