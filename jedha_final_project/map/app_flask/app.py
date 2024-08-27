@@ -55,23 +55,21 @@ def index():
     
     custom_css = """
     <style>
-    .leaflet-bar-timecontrol { /* Adjust the timeline control size */
+    /* Adjust the timeline control position */
+    .leaflet-bar-timecontrol { 
         top: 10px;     /* Adjust top position */
         left: auto;    /* Adjust left position */
     }
     /* Change the background color of the control layer */
     .leaflet-control-layers-expanded {
-        background-color: #c5d9e3; /* Change this to your desired color */
-    }
-
-    /* Change the text color of the control layer */
-    .leaflet-control-layers-expanded {
-        color: #0f0f0f; /* Change this to your desired color */
+        background-color: #c5d9e3;
+        color: #0f0f0f;
     }
     </style>
     """
 
     mymap.get_root().html.add_child(folium.Element(custom_css))
+    
 
     colormap = cm.LinearColormap(colors=['#5F97CF', '#90E1A9', '#F4EB87', '#FFD391', '#D85356'], 
                                     vmin=min(df_wind_speed['wind_speed']), 
@@ -212,9 +210,9 @@ def index():
 
     rendered_html = render_template('index.html', map_html=map_html)
     
-    # Save the rendered HTML to a file
-    with open('final_map.html', 'w') as f:
-        f.write(rendered_html)
+    # # Save the rendered HTML to a file
+    # with open('final_map.html', 'w') as f:
+    #     f.write(rendered_html)
 
 
     return render_template('index.html', map_html=map_html)
