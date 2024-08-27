@@ -1,0 +1,44 @@
+# LOCALISATION
+NUM_POSTE       : numéro Météo-France du poste sur 8 chiffres
+NOM_USUEL       : nom usuel du poste
+LAT             : latitude, négative au sud (en degrés et millionièmes de degré)
+LON             : longitude, négative à l’ouest de GREENWICH (en degrés et millionièmes de degré)
+ALTI            : altitude du pied de l'abri ou du pluviomètre si pas d'abri (en m)
+
+# DATE
+AAAAMM          : annéemois
+
+# PRECIPITATIONS
+RR              : cumul mensuel des hauteurs de précipitation (en mm et 1/10) > precip_cumul_mensu
+
+# PRESSION ATMOSPHERIQUE
+PMERM           : moyenne mensuelle des pressions mer moyennes (PMERM) quotidiennes (en hPa et 1/10) > A SUPP
+
+# TEMPERATURES
+TX              : moyenne mensuelle des températures maximales (TX) quotidiennes (en °C et 1/10) > temp_moy_mensu_max
+TXAB            : maximum absolu mensuel des TX quotidiennes (en °C et 1/10) > temp_max_mensu
+TXMIN           : minimum mensuel des TX quotidiennes (en °C et 1/10) > temp_min_mensu
+
+# GELEES
+NBJGELEE        : nombre de jours avec gelée
+
+# HUMIDITE
+UNAB            : minimum absolu mensuel des humidités relatives minimales (UN) quotidiennes (en %) > humi_min_mensu
+UXAB            : maximum absolu mensuel des humidités relatives maximales (UX) quotidiennes (en %) > humi_max_mensu
+UMM             : moyenne mensuelle des humidités moyennes (UM) quotidiennes (en %) > humi_moy_mensu
+
+# FORCE ET DIRECTION DU VENT :
+FFM             : moyenne mensuelle de la force moyenne quotidienne du vent moyenné sur 10 mn (FFM), à 10 m (en m/s et 1/10) > vent_speedinstant_moymensu
+
+FXIAB           : maximum absolu mensuel de la force maximale quotidienne du vent instantané, à 10 m (en m/s et 1/10) > vent_speedinstant_maxmensu
+DXIAB           : direction du FXIAB (en rose de 360) > vent_dir_instant 
+NBJFF10         : nombre de jours avec FXI ≥ 10 m/s > vent_nbjour_instant_speedsup10ms
+
+FXI3SAB         : maximum absolu mensuel de la force maximale quotidienne du vent moyenné sur 3 secondes, à 10 m (en m/s et 1/10) > A SUPP
+DXI3SAB         : direction associée à FXI3SAB (en rose de 360) > A SUPP
+NBJFXI3S10      : nombre de jours avec FXI3S ≥ 10 m/s   > A SUPP
+
+FXYAB           : maximum absolu mensuel de la force maximale quotidienne du vent moyenné sur 10 mn (FXY), à 10 m (en m/s et 1/10) > vent_speed10mn_maxmensu
+DXYAB           : direction associée à FXYAB (en rose de 360) vent_dir10mn 
+NBJFXY10        : nombre de jours avec FXY ≥ 10 m/s > vent_nbjour_10mn_speedsup10ms
+
